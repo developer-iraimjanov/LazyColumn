@@ -81,6 +81,9 @@ dependencies {
 
     //interceptor okHttpClient
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
+
+    //SwipeRefresh
+    implementation "com.google.accompanist:accompanist-swiperefresh:0.19.0"
 }
 kapt {
     correctErrorTypes true

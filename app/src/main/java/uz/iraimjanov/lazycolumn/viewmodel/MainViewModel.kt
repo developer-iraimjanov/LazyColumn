@@ -1,15 +1,20 @@
 package uz.iraimjanov.lazycolumn.viewmodel
 
-import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import uz.iraimjanov.lazycolumn.data.repository.MyRepository
 import uz.iraimjanov.lazycolumn.model.ContactRequest
 import uz.iraimjanov.lazycolumn.model.ContactResponse
 import uz.iraimjanov.lazycolumn.model.MyResponse
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,8 +22,7 @@ class MainViewModel @Inject constructor(private val repository: MyRepository) : 
 
     fun getAllContact() {
         viewModelScope.launch {
-            _getResponse.clear()
-            _getResponse.addAll(repository.getAllContact())
+            getResponse = repository.getAllContact()
         }
     }
 
@@ -44,7 +48,6 @@ class MainViewModel @Inject constructor(private val repository: MyRepository) : 
         }
     }
 
-    private val _getResponse = mutableStateListOf<ContactResponse>()
-    var getResponse: List<ContactResponse> = _getResponse
-    private var audMyResponse = MutableLiveData<MyResponse>()
+    var getResponse: List<ContactResponse> by mutableStateOf(listOf())
+    var audMyResponse = MutableLiveData<MyResponse>()
 }

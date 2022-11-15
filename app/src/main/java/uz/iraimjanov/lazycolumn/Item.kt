@@ -19,9 +19,8 @@ import uz.iraimjanov.lazycolumn.model.ContactResponse
 
 @ExperimentalMaterial3Api
 @Composable
-fun Item(contactResponse: ContactResponse, onClick: (contactResponse: ContactResponse) -> Unit) {
+fun Item(contactResponse: ContactResponse) {
     Surface(
-        onClick = { onClick(contactResponse) },
         color = Color.White
     ) {
         Column {
@@ -88,9 +87,5 @@ fun Item(contactResponse: ContactResponse, onClick: (contactResponse: ContactRes
 @Preview
 @Composable
 fun ItemPreview() {
-    Item(
-        contactResponse = ContactResponse(id = 0, name = "Iqbljon", "Raimjonov", "+998906330999"),
-        onClick = {
-
-        })
+    Item(contactResponse = ContactResponse(id = 0, name = "Iqbljon", "Raimjonov", "+998906330999"))
 }

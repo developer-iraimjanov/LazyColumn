@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import dagger.hilt.android.AndroidEntryPoint
-import uz.iraimjanov.lazycolumn.model.ContactResponse
 import uz.iraimjanov.lazycolumn.ui.theme.LazyColumnTheme
 import uz.iraimjanov.lazycolumn.utils.makeCall
 import uz.iraimjanov.lazycolumn.viewmodel.MainViewModel
@@ -31,27 +30,15 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val list = viewModel.getResponse
-
                     viewModel.getAllContact()
 
                     LazyColumn {
-                        items(items = list) { contactResponse ->
-                            Item(contactResponse = contactResponse, onClick = {
-                                makeCall(this@MainActivity, it.number)
-                            })
+                        items(items = viewModel.getResponse) { contactResponse ->
+                            Item(contactResponse = contactResponse)
                         }
                     }
-
                 }
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    LazyColumnTheme {
     }
 }
